@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IB Grade 5 Math: Data Representation & Central Tendency Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js DataLabels Plugin CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Fredoka', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        ibBlue: '#0284C7',
+                        ibDarkBlue: '#0369A1',
+                        ibTeal: '#0D9488',
+                        ibYellow: '#F59E0B',
+                        ibOrange: '#EA580C',
+                        ibPurple: '#7C3AED',
+                        ibGreen: '#16A34A',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 50%, #fef3c7 100%);
+            min-height: 100vh;
+        }
+        .font-display {
+            font-family: 'Fredoka', cursive;
+        }
+        .badge-ib {
+            background: rgba(224, 242, 254, 0.9);
+            border: 1px solid #bae6fd;
+            color: #0369a1;
+            border-radius: 9999px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .q-card {
+            transition: all 0.25s ease;
+        }
+        .q-card:hover {
+            box-shadow: 0 12px 28px -6px rgba(0,0,0,0.08);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="text-slate-800 pb-16">
+
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-ibDarkBlue via-ibBlue to-ibTeal flex items-center justify-center text-white text-2xl font-bold shadow-md">
+                    <i class="fa-solid fa-square-poll-vertical"></i>
+                </div>
+                <div>
+                    <h1 class="font-display text-xl md:text-2xl font-bold text-slate-800 leading-tight">
+                        IB PYP Grade 5 Math: Data & Central Tendency
+                    </h1>
+                    <p class="text-xs text-slate-500 font-semibold flex items-center gap-2">
+                        <span>30 Short-Answer Questions</span> • 
+                        <span class="text-emerald-600"><i class="fa-solid fa-shield-halved"></i> Auto-Saved</span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Live Progress Metrics -->
+            <div class="flex items-center gap-3 flex-wrap">
+                <div class="bg-sky-50 border border-sky-200 px-3.5 py-1.5 rounded-2xl flex items-center gap-2 shadow-sm">
+                    <span class="text-xs text-sky-700 font-bold uppercase tracking-wide">Answered:</span>
+                    <span id="stat-answered" class="font-display text-lg font-bold text-sky-900">0 / 30</span>
+                </div>
+                <div class="bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 rounded-2xl flex items-center gap-2 shadow-sm">
+                    <span class="text-xs text-emerald-700 font-bold uppercase tracking-wide">Score:</span>
+                    <span id="stat-score" class="font-display text-lg font-bold text-emerald-900">0 / 30</span>
+                </div>
+                <button onclick="resetQuizProgress()" class="text-xs bg-rose-50 hover:bg-rose-100 text-rose-600 px-3 py-2 rounded-xl font-bold transition flex items-center gap-1.5 border border-rose-200">
+            <i class="fa-solid fa-rotate-right"></i> Reset Progress
+        </button>
+            </div>
+        </div>
+
+        <!-- Overall Progress Bar -->
+        <div class="w-full bg-slate-200 h-2">
+            <div id="progress-bar-fill" class="bg-gradient-to-r from-ibTeal via-ibBlue to-ibPurple h-2 transition-all duration-300" style="width: 0%"></div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 mt-6">
+        
+        <!-- Banner Intro -->
+        <div class="bg-gradient-to-r from-sky-800 via-indigo-700 to-teal-700 text-white rounded-3xl p-6 shadow-xl mb-8 relative overflow-hidden">
+            <div class="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                <div>
+                    <span class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-white/30">
+                        PYP Mathematics Assessment • Data Representation
+                    </span>
+                    <h2 class="font-display text-2xl md:text-3xl font-bold mt-2">
+                        Master Data, Charts, Mean, Median, Mode & Range! 📊
+                    </h2>
+                    <p class="text-sky-100 text-sm mt-1 max-w-3xl leading-relaxed">
+                        Examine each visual dataset carefully. Calculate data totals, <strong>Mean</strong>, <strong>Median</strong>, <strong>Mode</strong>, and <strong>Range</strong> for every set. Type your numerical or text answer into the box and click <strong>"Submit Answer"</strong> to receive instant feedback!
+                    </p>
+                </div>
+                
+                <!-- Quick Concept Reminder Box -->
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3.5 border border-white/20 text-xs text-sky-100 grid grid-cols-2 gap-2 min-w-[260px]">
+                    <div class="bg-white/10 p-2 rounded-xl">
+                        <strong class="text-amber-300 block">Mean:</strong> Total ÷ Number of items
+                    </div>
+                    <div class="bg-white/10 p-2 rounded-xl">
+                        <strong class="text-amber-300 block">Median:</strong> Middle value in order
+                    </div>
+                    <div class="bg-white/10 p-2 rounded-xl">
+                        <strong class="text-amber-300 block">Mode:</strong> Most frequent value
+                    </div>
+                    <div class="bg-white/10 p-2 rounded-xl">
+                        <strong class="text-amber-300 block">Range:</strong> Maximum − Minimum
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex border-b border-slate-200 mb-6 space-x-2 overflow-x-auto pb-2 custom-scrollbar">
+            <button onclick="filterQuestions('all')" id="filter-all" class="filter-btn px-4 py-2.5 rounded-2xl font-bold text-xs md:text-sm flex items-center gap-2 whitespace-nowrap transition bg-ibBlue text-white shadow-md">
+                <i class="fa-solid fa-layer-group"></i> All Questions (30)
+            </button>
+            <button onclick="filterQuestions('pictogram')" id="filter-pictogram" class="filter-btn px-4 py-2.5 rounded-2xl font-bold text-xs md:text-sm flex items-center gap-2 whitespace-nowrap transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200">
+                <i class="fa-solid fa-icons"></i> Pictograms (Q1 - Q10)
+            </button>
+            <button onclick="filterQuestions('barchart')" id="filter-barchart" class="filter-btn px-4 py-2.5 rounded-2xl font-bold text-xs md:text-sm flex items-center gap-2 whitespace-nowrap transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200">
+                <i class="fa-solid fa-chart-column"></i> Bar Charts (Q11 - Q20)
+            </button>
+            <button onclick="filterQuestions('linegraph')" id="filter-linegraph" class="filter-btn px-4 py-2.5 rounded-2xl font-bold text-xs md:text-sm flex items-center gap-2 whitespace-nowrap transition bg-white text-slate-600 hover:bg-slate-100 border border-slate-200">
+                <i class="fa-solid fa-chart-line"></i> Line Graphs (Q21 - Q30)
+            </button>
+        </div>
+
+        <!-- Questions Single Column Container -->
+        <div id="quiz-container" class="grid grid-cols-1 max-w-3xl mx-auto gap-6">
+            <!-- Questions dynamically populated by JS -->
+        </div>
+
+    </main>
+
+    <!-- Custom Modal Dialog for Messages -->
+    <div id="custom-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-white rounded-3xl p-6 max-w-sm w-full mx-4 shadow-2xl border border-slate-100 text-center transform transition-transform scale-95">
+            <div id="modal-icon" class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl font-bold mx-auto mb-3">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 id="modal-title" class="font-display text-lg font-bold text-slate-800 mb-1">Notice</h3>
+            <p id="modal-msg" class="text-xs text-slate-600 mb-5 leading-relaxed">Please type your answer before checking!</p>
+            <button onclick="closeModal()" class="w-full py-2.5 bg-ibBlue hover:bg-ibDarkBlue text-white font-bold rounded-xl text-xs transition shadow">
+                OK, Got It
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const questionsData = [
+            // ==========================================
+            // DATASET 1: PICTOGRAM - Picked Apples (Q1 - Q5)
+            // ==========================================
+            {
+                id: 1,
+                category: 'pictogram',
+                datasetId: 'ds1',
+                datasetTitle: 'Dataset 1: Grade 5 Apple Picking Trip',
+                title: 'Question 1: Total Apples Picked',
+                type: 'pictogram',
+                graphicData: {
+                    keyText: '🔑 Key: Each 🍎 symbol represents 5 Apples',
+                    rows: [
+                        { label: 'Monday', icons: '🍎 🍎 🍎 🍎', val: 20 },
+                        { label: 'Tuesday', icons: '🍎 🍎', val: 10 },
+                        { label: 'Wednesday', icons: '🍎 🍎 🍎 🍎 🍎 🍎', val: 30 },
+                        { label: 'Thursday', icons: '🍎 🍎 🍎 🍎', val: 20 }
+                    ]
+                },
+                questionText: 'What is the <strong>Total number of apples</strong> picked from Monday to Thursday combined?',
+                validAnswers: ['80', '80 apples', '80 apple'],
+                explanation: '<strong>Calculate values per day:</strong><br>• Monday = 4 × 5 = 20 apples<br>• Tuesday = 2 × 5 = 10 apples<br>• Wednesday = 6 × 5 = 30 apples<br>• Thursday = 4 × 5 = 20 apples<br><strong>Total Sum:</strong> 20 + 10 + 30 + 20 = <strong>80 apples</strong>.'
+            },
+            {
+                id: 2,
+                category: 'pictogram',
+                datasetId: 'ds1',
+                datasetTitle: 'Dataset 1: Grade 5 Apple Picking Trip',
+                title: 'Question 2: Mean Apples Picked per Day',
+                type: 'pictogram',
+                questionText: 'Based on Dataset 1, what is the <strong>Mean (Average)</strong> number of apples picked per day?',
+                validAnswers: ['20', '20 apples', '20 apple'],
+                explanation: '<strong>Formula: Mean = Total ÷ Number of Days</strong><br>• Total apples = 80<br>• Days counted = 4 days<br>• <strong>Mean:</strong> 80 ÷ 4 = <strong>20 apples per day</strong>.'
+            },
+            {
+                id: 3,
+                category: 'pictogram',
+                datasetId: 'ds1',
+                datasetTitle: 'Dataset 1: Grade 5 Apple Picking Trip',
+                title: 'Question 3: Median Apples Picked per Day',
+                type: 'pictogram',
+                questionText: 'Based on Dataset 1, what is the <strong>Median (Middle Value)</strong> of apples picked per day?',
+                validAnswers: ['20', '20 apples', '20 apple'],
+                explanation: '<strong>Steps for Median:</strong><br>1. List the values: 20, 10, 30, 20.<br>2. Arrange in ascending order: 10, <strong>20</strong>, <strong>20</strong>, 30.<br>3. Average the two middle numbers: (20 + 20) ÷ 2 = <strong>20 apples</strong>.'
+            },
+            {
+                id: 4,
+                category: 'pictogram',
+                datasetId: 'ds1',
+                datasetTitle: 'Dataset 1: Grade 5 Apple Picking Trip',
+                title: 'Question 4: Mode of Apples Picked',
+                type: 'pictogram',
+                questionText: 'Based on Dataset 1, what is the <strong>Mode (Most Frequent Value)</strong> of apples picked per day?',
+                validAnswers: ['20', '20 apples', '20 apple'],
+                explanation: '<strong>Mode is the number that appears most frequently:</strong><br>Daily counts: [20, 10, 30, 20].<br>The value <strong>20</strong> appears twice (Monday & Thursday), which is more than any other number.'
+            },
+            {
+                id: 5,
+                category: 'pictogram',
+                datasetId: 'ds1',
+                datasetTitle: 'Dataset 1: Grade 5 Apple Picking Trip',
+                title: 'Question 5: Range of Apples Picked',
+                type: 'pictogram',
+                questionText: 'Based on Dataset 1, what is the <strong>Range</strong> of the daily apple count?',
+                validAnswers: ['20', '20 apples', '20 apple'],
+                explanation: '<strong>Formula: Range = Maximum Value − Minimum Value</strong><br>• Maximum = 30 apples (Wednesday)<br>• Minimum = 10 apples (Tuesday)<br>• <strong>Range:</strong> 30 − 10 = <strong>20 apples</strong>.'
+            },
+
+            // ==========================================
+            // DATASET 2: PICTOGRAM - Reading Challenge (Q6 - Q10)
+            // ==========================================
+            {
+                id: 6,
+                category: 'pictogram',
+                datasetId: 'ds2',
+                datasetTitle: 'Dataset 2: Library Reading Challenge',
+                title: 'Question 6: Books Read by Liam',
+                type: 'pictogram',
+                graphicData: {
+                    keyText: '🔑 Key: Each 📚 symbol represents 3 Books',
+                    rows: [
+                        { label: 'Maya', icons: '📚 📚 📚', val: 9 },
+                        { label: 'Liam', icons: '📚 📚 📚 📚 📚', val: 15 },
+                        { label: 'Noah', icons: '📚 📚', val: 6 },
+                        { label: 'Emma', icons: '📚 📚 📚 📚', val: 12 },
+                        { label: 'Sofia', icons: '📚 📚', val: 6 }
+                    ]
+                },
+                questionText: 'How many total <strong>books did Liam read</strong> during the challenge?',
+                validAnswers: ['15', '15 books', '15 book'],
+                explanation: '<strong>Calculate Liam’s total:</strong><br>Liam has 5 book symbols.<br>5 × 3 = <strong>15 books</strong>.'
+            },
+            {
+                id: 7,
+                category: 'pictogram',
+                datasetId: 'ds2',
+                datasetTitle: 'Dataset 2: Library Reading Challenge',
+                title: 'Question 7: Mean Books Read per Student',
+                type: 'pictogram',
+                questionText: 'Based on Dataset 2, calculate the <strong>Mean (Average)</strong> number of books read per student.',
+                validAnswers: ['9.6', '9,6', '9.6 books', '9,6 books'],
+                explanation: '<strong>Formula: Mean = Total Books ÷ Number of Students</strong><br>• Total = 9 + 15 + 6 + 12 + 6 = 48 books<br>• Students = 5<br>• <strong>Mean:</strong> 48 ÷ 5 = <strong>9.6 books</strong>.'
+            },
+            {
+                id: 8,
+                category: 'pictogram',
+                datasetId: 'ds2',
+                datasetTitle: 'Dataset 2: Library Reading Challenge',
+                title: 'Question 8: Median Books Read',
+                type: 'pictogram',
+                questionText: 'Based on Dataset 2, what is the <strong>Median (Middle Value)</strong> number of books read?',
+                validAnswers: ['9', '9 books', '9 book'],
+                explanation: '<strong>Steps for Median:</strong><br>1. Extract data: [9, 15, 6, 12, 6]<br>2. Sort in order: 6, 6, <strong class="text-sky-700">9</strong>, 12, 15.<br>3. The middle value (3rd position) is <strong>9 books</strong>.'
+            },
+            {
+                id: 9,
+                category: 'pictogram',
+                datasetId: 'ds2',
+                datasetTitle: 'Dataset 2: Library Reading Challenge',
+                title: 'Question 9: Mode of Books Read',
+                type: 'pictogram',
+                questionText: 'Based on Dataset 2, what is the <strong>Mode (Most Frequent Value)</strong> of books read?',
+                validAnswers: ['6', '6 books', '6 book'],
+                explanation: '<strong>Mode:</strong> The count <strong>6</strong> appears twice (Noah and Sofia), which is more frequent than any other count.'
+            },
+            {
+                id: 10,
+                category: 'pictogram',
+                datasetId: 'ds2',
+                datasetTitle: 'Dataset 2: Library Reading Challenge',
+                title: 'Question 10: Range of Books Read',
+                type: 'pictogram',
+                questionText: 'Based on Dataset 2, what is the <strong>Range</strong> of books read by the students?',
+                validAnswers: ['9', '9 books', '9 book'],
+                explanation: '<strong>Formula: Range = Max − Min</strong><br>• Maximum = 15 books (Liam)<br>• Minimum = 6 books (Noah / Sofia)<br>• <strong>Range:</strong> 15 − 6 = <strong>9 books</strong>.'
+            },
+
+            // ==========================================
+            // DATASET 3: BAR CHART - Math Quiz Scores (Q11 - Q15)
+            // ==========================================
+            {
+                id: 11,
+                category: 'barchart',
+                datasetId: 'ds3',
+                datasetTitle: 'Dataset 3: Student Math Quiz Scores',
+                title: 'Question 11: Total Quiz Points',
+                type: 'chart',
+                chartConfig: {
+                    type: 'bar',
+                    labels: ['Quiz 1', 'Quiz 2', 'Quiz 3', 'Quiz 4', 'Quiz 5'],
+                    dataset: [70, 85, 90, 85, 100],
+                    bgColor: '#0284C7',
+                    labelName: 'Score Points'
+                },
+                questionText: 'What is the <strong>Total sum of all 5 math quiz scores</strong>?',
+                validAnswers: ['430', '430 points', '430 pts'],
+                explanation: '<strong>Add all 5 quiz scores together:</strong><br>70 + 85 + 90 + 85 + 100 = <strong>430 points</strong>.'
+            },
+            {
+                id: 12,
+                category: 'barchart',
+                datasetId: 'ds3',
+                datasetTitle: 'Dataset 3: Student Math Quiz Scores',
+                title: 'Question 12: Mean Math Quiz Score',
+                type: 'chart',
+                questionText: 'Based on Dataset 3, what is the <strong>Mean (Average)</strong> score across all 5 quizzes?',
+                validAnswers: ['86', '86 points', '86 pts'],
+                explanation: '<strong>Formula: Mean = Total Score ÷ 5 Quizzes</strong><br>• Total = 430<br>• <strong>Mean:</strong> 430 ÷ 5 = <strong>86 points</strong>.'
+            },
+            {
+                id: 13,
+                category: 'barchart',
+                datasetId: 'ds3',
+                datasetTitle: 'Dataset 3: Student Math Quiz Scores',
+                title: 'Question 13: Median Math Quiz Score',
+                type: 'chart',
+                questionText: 'Based on Dataset 3, what is the <strong>Median (Middle Score)</strong> of the quizzes?',
+                validAnswers: ['85', '85 points', '85 pts'],
+                explanation: '<strong>Steps for Median:</strong><br>1. Sort scores: 70, 85, <strong class="text-sky-700">85</strong>, 90, 100.<br>2. The score in the middle position (3rd quiz) is <strong>85</strong>.'
+            },
+            {
+                id: 14,
+                category: 'barchart',
+                datasetId: 'ds3',
+                datasetTitle: 'Dataset 3: Student Math Quiz Scores',
+                title: 'Question 14: Mode of Math Quiz Scores',
+                type: 'chart',
+                questionText: 'Based on Dataset 3, what is the <strong>Mode</strong> of the quiz scores?',
+                validAnswers: ['85', '85 points', '85 pts'],
+                explanation: '<strong>Mode:</strong> The score <strong>85</strong> appears twice (Quiz 2 and Quiz 4).'
+            },
+            {
+                id: 15,
+                category: 'barchart',
+                datasetId: 'ds3',
+                datasetTitle: 'Dataset 3: Student Math Quiz Scores',
+                title: 'Question 15: Range of Math Quiz Scores',
+                type: 'chart',
+                questionText: 'Based on Dataset 3, what is the <strong>Range</strong> of the quiz scores?',
+                validAnswers: ['30', '30 points', '30 pts'],
+                explanation: '<strong>Formula: Range = Highest Score − Lowest Score</strong><br>• Highest = 100 (Quiz 5)<br>• Lowest = 70 (Quiz 1)<br>• <strong>Range:</strong> 100 − 70 = <strong>30 points</strong>.'
+            },
+
+            // ==========================================
+            // DATASET 4: BAR CHART - PYP Recycled Plastic (Q16 - Q20)
+            // ==========================================
+            {
+                id: 16,
+                category: 'barchart',
+                datasetId: 'ds4',
+                datasetTitle: 'Dataset 4: PYP Plastic Recycling Drive (kg)',
+                title: 'Question 16: Total Plastic Recycled',
+                type: 'chart',
+                chartConfig: {
+                    type: 'bar',
+                    labels: ['Class 5A', 'Class 5B', 'Class 5C', 'Class 5D'],
+                    dataset: [24, 18, 30, 18],
+                    bgColor: '#0D9488',
+                    labelName: 'Recycled Plastic (kg)'
+                },
+                questionText: 'What is the <strong>Total weight of plastic (in kg)</strong> collected by all 4 Grade 5 classes combined?',
+                validAnswers: ['90', '90 kg', '90kg'],
+                explanation: '<strong>Summing all classes:</strong><br>24 + 18 + 30 + 18 = <strong>90 kg</strong>.'
+            },
+            {
+                id: 17,
+                category: 'barchart',
+                datasetId: 'ds4',
+                datasetTitle: 'Dataset 4: PYP Plastic Recycling Drive (kg)',
+                title: 'Question 17: Mean Recycled Plastic per Class',
+                type: 'chart',
+                questionText: 'Based on Dataset 4, what is the <strong>Mean (Average)</strong> weight of plastic recycled per class in kg?',
+                validAnswers: ['22.5', '22,5', '22.5 kg', '22,5 kg'],
+                explanation: '<strong>Formula: Mean = Total ÷ 4 Classes</strong><br>• Total = 90 kg<br>• <strong>Mean:</strong> 90 ÷ 4 = <strong>22.5 kg</strong>.'
+            },
+            {
+                id: 18,
+                category: 'barchart',
+                datasetId: 'ds4',
+                datasetTitle: 'Dataset 4: PYP Plastic Recycling Drive (kg)',
+                title: 'Question 18: Median Recycled Plastic',
+                type: 'chart',
+                questionText: 'Based on Dataset 4, what is the <strong>Median</strong> weight of plastic recycled among the 4 classes?',
+                validAnswers: ['21', '21 kg', '21kg'],
+                explanation: '<strong>Steps for Median (Even Data Set):</strong><br>1. Sort: 18, <strong class="text-teal-700">18, 24</strong>, 30.<br>2. Middle pair: 18 and 24.<br>3. Average of middle pair: (18 + 24) ÷ 2 = 42 ÷ 2 = <strong>21 kg</strong>.'
+            },
+            {
+                id: 19,
+                category: 'barchart',
+                datasetId: 'ds4',
+                datasetTitle: 'Dataset 4: PYP Plastic Recycling Drive (kg)',
+                title: 'Question 19: Mode of Recycled Plastic',
+                type: 'chart',
+                questionText: 'Based on Dataset 4, what is the <strong>Mode</strong> of plastic recycled across the classes?',
+                validAnswers: ['18', '18 kg', '18kg'],
+                explanation: '<strong>Mode:</strong> The amount <strong>18 kg</strong> appears twice (Class 5B and Class 5D).'
+            },
+            {
+                id: 20,
+                category: 'barchart',
+                datasetId: 'ds4',
+                datasetTitle: 'Dataset 4: PYP Plastic Recycling Drive (kg)',
+                title: 'Question 20: Range of Recycled Plastic',
+                type: 'chart',
+                questionText: 'Based on Dataset 4, what is the <strong>Range</strong> of plastic recycled?',
+                validAnswers: ['12', '12 kg', '12kg'],
+                explanation: '<strong>Formula: Range = Max − Min</strong><br>• Max = 30 kg (Class 5C)<br>• Min = 18 kg (Class 5B & 5D)<br>• <strong>Range:</strong> 30 − 18 = <strong>12 kg</strong>.'
+            },
+
+            // ==========================================
+            // DATASET 5: LINE GRAPH - Daily Temperatures (Q21 - Q25)
+            // ==========================================
+            {
+                id: 21,
+                category: 'linegraph',
+                datasetId: 'ds5',
+                datasetTitle: 'Dataset 5: Jakarta Daily High Temperatures (°C)',
+                title: 'Question 21: Temperature on Thursday',
+                type: 'chart',
+                chartConfig: {
+                    type: 'line',
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                    dataset: [30, 32, 31, 35, 32],
+                    bgColor: '#EA580C',
+                    labelName: 'Temperature (°C)'
+                },
+                questionText: 'What was the recorded temperature on <strong>Thursday</strong> in °C?',
+                validAnswers: ['35', '35°C', '35 °C', '35 degrees'],
+                explanation: '<strong>Direct graph reading:</strong> On Thursday, the line point sits directly at <strong>35°C</strong>.'
+            },
+            {
+                id: 22,
+                category: 'linegraph',
+                datasetId: 'ds5',
+                datasetTitle: 'Dataset 5: Jakarta Daily High Temperatures (°C)',
+                title: 'Question 22: Mean Daily Temperature',
+                type: 'chart',
+                questionText: 'Based on Dataset 5, what is the <strong>Mean (Average)</strong> temperature over the 5 days?',
+                validAnswers: ['32', '32°C', '32 °C', '32 degrees'],
+                explanation: '<strong>Formula: Mean = Total Temperature ÷ 5 Days</strong><br>• Total = 30 + 32 + 31 + 35 + 32 = 160°C<br>• <strong>Mean:</strong> 160 ÷ 5 = <strong>32°C</strong>.'
+            },
+            {
+                id: 23,
+                category: 'linegraph',
+                datasetId: 'ds5',
+                datasetTitle: 'Dataset 5: Jakarta Daily High Temperatures (°C)',
+                title: 'Question 23: Median Daily Temperature',
+                type: 'chart',
+                questionText: 'Based on Dataset 5, what is the <strong>Median (Middle Value)</strong> temperature?',
+                validAnswers: ['32', '32°C', '32 °C', '32 degrees'],
+                explanation: '<strong>Steps for Median:</strong><br>1. Sort numbers: 30, 31, <strong class="text-orange-700">32</strong>, 32, 35.<br>2. Position 3 (middle) = <strong>32°C</strong>.'
+            },
+            {
+                id: 24,
+                category: 'linegraph',
+                datasetId: 'ds5',
+                datasetTitle: 'Dataset 5: Jakarta Daily High Temperatures (°C)',
+                title: 'Question 24: Mode of Daily Temperature',
+                type: 'chart',
+                questionText: 'Based on Dataset 5, what is the <strong>Mode</strong> of the daily temperatures?',
+                validAnswers: ['32', '32°C', '32 °C', '32 degrees'],
+                explanation: '<strong>Mode:</strong> The temperature <strong>32°C</strong> occurs twice (Tuesday & Friday).'
+            },
+            {
+                id: 25,
+                category: 'linegraph',
+                datasetId: 'ds5',
+                datasetTitle: 'Dataset 5: Jakarta Daily High Temperatures (°C)',
+                title: 'Question 25: Range of Daily Temperature',
+                type: 'chart',
+                questionText: 'Based on Dataset 5, what is the <strong>Range</strong> of temperatures across the 5 days?',
+                validAnswers: ['5', '5°C', '5 °C', '5 degrees'],
+                explanation: '<strong>Formula: Range = Max Temp − Min Temp</strong><br>• Max = 35°C (Thu), Min = 30°C (Mon)<br>• <strong>Range:</strong> 35 − 30 = <strong>5°C</strong>.'
+            },
+
+            // ==========================================
+            // DATASET 6: LINE GRAPH - Marathon Runner (Q26 - Q30)
+            // ==========================================
+            {
+                id: 26,
+                category: 'linegraph',
+                datasetId: 'ds6',
+                datasetTitle: 'Dataset 6: Marathon Runner Hourly Distance (km)',
+                title: 'Question 26: Total Distance Covered',
+                type: 'chart',
+                chartConfig: {
+                    type: 'line',
+                    labels: ['Hour 1', 'Hour 2', 'Hour 3', 'Hour 4', 'Hour 5'],
+                    dataset: [8, 12, 10, 14, 12],
+                    bgColor: '#7C3AED',
+                    labelName: 'Distance (km)'
+                },
+                questionText: 'What is the <strong>Total distance in km</strong> covered by the runner in 5 hours?',
+                validAnswers: ['56', '56 km', '56km'],
+                explanation: '<strong>Summing all 5 hours:</strong><br>8 + 12 + 10 + 14 + 12 = <strong>56 km</strong>.'
+            },
+            {
+                id: 27,
+                category: 'linegraph',
+                datasetId: 'ds6',
+                datasetTitle: 'Dataset 6: Marathon Runner Hourly Distance (km)',
+                title: 'Question 27: Mean Hourly Distance',
+                type: 'chart',
+                questionText: 'Based on Dataset 6, what is the <strong>Mean (Average)</strong> distance covered per hour in km?',
+                validAnswers: ['11.2', '11,2', '11.2 km', '11,2 km'],
+                explanation: '<strong>Formula: Mean = Total Distance ÷ 5 Hours</strong><br>• Total = 56 km<br>• <strong>Mean:</strong> 56 ÷ 5 = <strong>11.2 km per hour</strong>.'
+            },
+            {
+                id: 28,
+                category: 'linegraph',
+                datasetId: 'ds6',
+                datasetTitle: 'Dataset 6: Marathon Runner Hourly Distance (km)',
+                title: 'Question 28: Median Hourly Distance',
+                type: 'chart',
+                questionText: 'Based on Dataset 6, what is the <strong>Median (Middle Distance)</strong> per hour?',
+                validAnswers: ['12', '12 km', '12km'],
+                explanation: '<strong>Steps for Median:</strong><br>1. Sort distances: 8, 10, <strong class="text-purple-700">12</strong>, 12, 14.<br>2. Position 3 (middle) = <strong>12 km</strong>.'
+            },
+            {
+                id: 29,
+                category: 'linegraph',
+                datasetId: 'ds6',
+                datasetTitle: 'Dataset 6: Marathon Runner Hourly Distance (km)',
+                title: 'Question 29: Mode of Hourly Distance',
+                type: 'chart',
+                questionText: 'Based on Dataset 6, what is the <strong>Mode</strong> of distance covered per hour?',
+                validAnswers: ['12', '12 km', '12km'],
+                explanation: '<strong>Mode:</strong> The distance <strong>12 km</strong> appears twice (Hour 2 and Hour 5).'
+            },
+            {
+                id: 30,
+                category: 'linegraph',
+                datasetId: 'ds6',
+                datasetTitle: 'Dataset 6: Marathon Runner Hourly Distance (km)',
+                title: 'Question 30: Range of Hourly Distance',
+                type: 'chart',
+                questionText: 'Based on Dataset 6, what is the <strong>Range</strong> of the hourly distances?',
+                validAnswers: ['6', '6 km', '6km'],
+                explanation: '<strong>Formula: Range = Max Distance − Min Distance</strong><br>• Max = 14 km (Hour 4)<br>• Min = 8 km (Hour 1)<br>• <strong>Range:</strong> 14 − 8 = <strong>6 km</strong>.'
+            }
+        ];
+
+        const STORAGE_KEY = 'ib_math_quiz_v2_english_progress';
+        let userProgress = {}; // { qId: { answer: string, isChecked: boolean, isCorrect: boolean } }
+
+        function loadProgress() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    userProgress = JSON.parse(saved);
+                }
+            } catch (e) {
+                console.error("Could not load stored progress", e);
+                userProgress = {};
+            }
+        }
+
+        function saveProgress() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(userProgress));
+            } catch (e) {
+                console.error("Could not save to localStorage", e);
+            }
+            updateMetrics();
+        }
+
+        function resetQuizProgress() {
+            localStorage.removeItem(STORAGE_KEY);
+            userProgress = {};
+            renderQuiz('all');
+            updateMetrics();
+            showModal("Progres kuis telah direset kembali dari awal.", "Reset Berhasil");
+        }
+
+        function updateMetrics() {
+            let answeredCount = 0;
+            let correctCount = 0;
+
+            questionsData.forEach(q => {
+                const prog = userProgress[q.id];
+                if (prog && prog.isChecked) {
+                    answeredCount++;
+                    if (prog.isCorrect) correctCount++;
+                }
+            });
+
+            document.getElementById('stat-answered').innerText = `${answeredCount} / 30`;
+            document.getElementById('stat-score').innerText = `${correctCount} / 30`;
+
+            const pct = Math.round((answeredCount / 30) * 100);
+            document.getElementById('progress-bar-fill').style.width = `${pct}%`;
+        }
+
+        function showModal(msg, title = "Notice") {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-msg').innerText = msg;
+            const modal = document.getElementById('custom-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('custom-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        function cleanString(str) {
+            return str.toString().trim().toLowerCase().replace(/\s+/g, ' ');
+        }
+
+        function checkAnswer(qId) {
+            const inputEl = document.getElementById(`input-q-${qId}`);
+            if (!inputEl) return;
+
+            const userVal = inputEl.value.trim();
+            if (!userVal) {
+                showModal("Please type your answer into the input box before clicking submit!", "Answer Required");
+                return;
+            }
+
+            const q = questionsData.find(item => item.id === qId);
+            if (!q) return;
+
+            const cleanUser = cleanString(userVal);
+            const isCorrect = q.validAnswers.some(ans => cleanString(ans) === cleanUser);
+
+            userProgress[qId] = {
+                answer: userVal,
+                isChecked: true,
+                isCorrect: isCorrect
+            };
+
+            saveProgress();
+            renderQuestionState(qId);
+        }
+
+        function renderQuestionState(qId) {
+            const q = questionsData.find(item => item.id === qId);
+            const prog = userProgress[qId];
+            const feedbackBox = document.getElementById(`feedback-q-${qId}`);
+            const inputEl = document.getElementById(`input-q-${qId}`);
+
+            if (!prog || !prog.isChecked) {
+                if (feedbackBox) feedbackBox.innerHTML = '';
+                return;
+            }
+
+            if (inputEl) inputEl.value = prog.answer;
+
+            if (prog.isCorrect) {
+                feedbackBox.innerHTML = `
+                    <div class="mt-4 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs shadow-sm">
+                        <div class="flex items-center gap-2 font-bold text-emerald-700 text-sm mb-1.5">
+                            <i class="fa-solid fa-circle-check text-emerald-600 text-base"></i> Correct Answer!
+                        </div>
+                        <div class="text-slate-700 leading-relaxed">${q.explanation}</div>
+                    </div>
+                `;
+            } else {
+                feedbackBox.innerHTML = `
+                    <div class="mt-4 p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-950 text-xs shadow-sm">
+                        <div class="flex items-center gap-2 font-bold text-rose-700 text-sm mb-1.5">
+                            <i class="fa-solid fa-circle-xmark text-rose-600 text-base"></i> Incorrect Answer
+                        </div>
+                        <div class="text-slate-700 leading-relaxed">${q.explanation}</div>
+                    </div>
+                `;
+            }
+        }
+
+        function renderQuiz(filterCategory = 'all') {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            const filtered = questionsData.filter(q => filterCategory === 'all' || q.category === filterCategory);
+
+            filtered.forEach(q => {
+                const card = document.createElement('div');
+                card.className = "q-card bg-white rounded-3xl p-6 border border-slate-200/80 shadow-md flex flex-col justify-between";
+                card.id = `card-q-${q.id}`;
+
+                let visualHTML = '';
+
+                // Generate Visual Graphics based on type
+                if (q.type === 'pictogram' && q.graphicData) {
+                    visualHTML = `
+                        <div class="bg-amber-50/80 p-4 rounded-2xl border border-amber-200 mb-4 text-xs">
+                            <div class="flex justify-between items-center mb-2.5 font-bold text-amber-900 flex-wrap gap-1">
+                                <span class="font-display text-sm"><i class="fa-solid fa-star text-amber-500"></i> ${q.datasetTitle}</span>
+                                <span class="bg-white text-amber-900 border border-amber-300 px-2.5 py-1 rounded-lg shadow-sm font-semibold">${q.graphicData.keyText}</span>
+                            </div>
+                            <div class="space-y-2">
+                                ${q.graphicData.rows.map(r => `
+                                    <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-amber-100 shadow-sm">
+                                        <span class="font-bold text-slate-700 w-28">${r.label}</span>
+                                        <div class="text-base tracking-widest">${r.icons}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                } else if (q.type === 'chart' && q.chartConfig) {
+                    visualHTML = `
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-display text-xs font-bold text-slate-700"><i class="fa-solid fa-chart-simple text-ibBlue"></i> ${q.datasetTitle}</span>
+                            </div>
+                            <div class="h-48 relative">
+                                <canvas id="chart-canvas-${q.id}"></canvas>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // For reference questions in the same dataset, display a mini dataset summary badge card
+                    const parentData = questionsData.find(p => p.datasetId === q.datasetId && p.graphicData);
+                    const parentChart = questionsData.find(p => p.datasetId === q.datasetId && p.chartConfig);
+
+                    if (parentData && parentData.graphicData) {
+                        visualHTML = `
+                            <div class="bg-amber-50/70 p-3.5 rounded-2xl border border-amber-200 mb-4 text-xs">
+                                <div class="flex justify-between items-center mb-2 font-bold text-amber-900 flex-wrap gap-1">
+                                    <span class="font-display text-xs"><i class="fa-solid fa-database text-amber-600"></i> ${q.datasetTitle}:</span>
+                                    <span class="text-[11px] bg-white text-amber-800 border border-amber-200 px-2 py-0.5 rounded font-semibold">${parentData.graphicData.keyText}</span>
+                                </div>
+                                <div class="space-y-1.5">
+                                    ${parentData.graphicData.rows.map(r => `
+                                        <div class="flex items-center justify-between bg-white px-3 py-1.5 rounded-lg border border-amber-100 text-slate-700 font-medium">
+                                            <span class="font-bold w-24">${r.label}:</span>
+                                            <span class="tracking-widest text-sm">${r.icons}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    } else if (parentChart && parentChart.chartConfig) {
+                        const cfg = parentChart.chartConfig;
+                        visualHTML = `
+                            <div class="bg-sky-50/80 p-3.5 rounded-2xl border border-sky-200 mb-4 text-xs">
+                                <div class="font-display text-xs font-bold text-sky-900 mb-2">
+                                    <i class="fa-solid fa-database text-sky-600"></i> ${q.datasetTitle} Values:
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    ${cfg.labels.map((lbl, idx) => `
+                                        <span class="bg-white border border-sky-200 px-2.5 py-1 rounded-lg text-slate-700 font-medium">
+                                            <strong>${lbl}:</strong> ${cfg.dataset[idx]}
+                                        </span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+
+                const currentVal = (userProgress[q.id] && userProgress[q.id].answer) ? userProgress[q.id].answer : '';
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-3 flex-wrap gap-2">
+                            <span class="badge-ib">${q.title}</span>
+                            <span class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">${q.category}</span>
+                        </div>
+
+                        ${visualHTML}
+
+                        <p class="text-sm text-slate-800 leading-relaxed mb-4">
+                            ${q.questionText}
+                        </p>
+                    </div>
+
+                    <div>
+                        <!-- Input Box & Submit Button -->
+                        <div class="flex gap-2 flex-col sm:flex-row">
+                            <input type="text" id="input-q-${q.id}" value="${currentVal}" placeholder="Type your answer here..." class="flex-grow px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-ibBlue font-medium">
+                            <button id="btn-q-${q.id}" onclick="checkAnswer(${q.id})" class="bg-ibBlue hover:bg-ibDarkBlue text-white font-bold px-5 py-2.5 rounded-xl text-sm transition shadow flex items-center justify-center gap-2 shrink-0">
+                                <i class="fa-solid fa-paper-plane"></i> Submit Answer
+                            </button>
+                        </div>
+
+                        <div id="feedback-q-${q.id}"></div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+
+                // Render Chart canvas if applicable
+                if (q.type === 'chart' && q.chartConfig) {
+                    setTimeout(() => renderQuestionChart(q.id, q.chartConfig), 50);
+                }
+
+                // Render restored feedback state
+                renderQuestionState(q.id);
+            });
+        }
+
+        Chart.register(ChartDataLabels);
+
+        function renderQuestionChart(qId, cfg) {
+            const canvas = document.getElementById(`chart-canvas-${qId}`);
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+
+            new Chart(ctx, {
+                type: cfg.type,
+                data: {
+                    labels: cfg.labels,
+                    datasets: [{
+                        label: cfg.labelName,
+                        data: cfg.dataset,
+                        backgroundColor: cfg.type === 'bar' ? cfg.bgColor : 'rgba(234, 88, 12, 0.15)',
+                        borderColor: cfg.bgColor,
+                        borderWidth: 3,
+                        pointBackgroundColor: cfg.bgColor,
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        borderRadius: cfg.type === 'bar' ? 8 : 0,
+                        tension: 0.2,
+                        fill: cfg.type === 'line'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            top: 25,
+                            bottom: 5
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            backgroundColor: cfg.bgColor,
+                            borderRadius: 6,
+                            color: '#ffffff',
+                            font: {
+                                family: 'Fredoka',
+                                size: 11,
+                                weight: 'bold'
+                            },
+                            padding: {
+                                top: 3,
+                                bottom: 3,
+                                left: 6,
+                                right: 6
+                            },
+                            formatter: function(value) {
+                                return value;
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f1f5f9' },
+                            ticks: { font: { size: 10, family: 'Plus Jakarta Sans' } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 10, family: 'Plus Jakarta Sans', weight: '600' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function filterQuestions(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-ibBlue', 'text-white', 'shadow-md');
+                btn.classList.add('bg-white', 'text-slate-600');
+            });
+
+            const activeBtn = document.getElementById(`filter-${category}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-slate-600');
+                activeBtn.classList.add('bg-ibBlue', 'text-white', 'shadow-md');
+            }
+
+            renderQuiz(category);
+        }
+
+        // Initialize App
+        window.onload = function() {
+            loadProgress();
+            renderQuiz('all');
+            updateMetrics();
+        };
+    </script>
+</body>
+</html>
